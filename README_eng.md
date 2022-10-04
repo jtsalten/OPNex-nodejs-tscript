@@ -1,32 +1,33 @@
 # OPNex-nodejs-tscript
+[README en Español](https://github.com/jtsalten/OPNex-nodejs-tscript#readme)
 
-Pequeño ejemplo - IRIS + Node.js usando TypeScript (definición de tipos del Native API SDK para Node.js de IRIS en beta)
+A small example - IRIS + Node.js using TypeScript (type definition file for Native API SDK for Node.js in IRIS still in beta)
 
-## Instalación en entorno Local
+## Local Environment Installation
 
-### Instalación de Node.js
+### Node.js installation
 
-Ve a [nodejs.org](https://nodejs.org/en/download/) e instala la versión más reciente de Node.js para tu sistema operativo
+Go to [nodejs.org](https://nodejs.org/en/download/) and install the latest version of Node.js for your OS.
 
-Las últimas versiones de node.js ya deben incluir el package manager npm que nos servirá para instalar otros módulos.
+The last versions of node.js already include the package manager ``npm`` that we'll use to install other modules/packages.
 
-### Instalación de TypeScript
+### TypeScript Installation
 
-Ve al sitio de [Descarga de TypeScript](https://www.typescriptlang.org/download).
+Go to [TypeScript Download](https://www.typescriptlang.org/download).
 
-Puedes instalar TypeScript local al proyecto, pero yo prefiero instalarlo globalmente, de modo que pueda llamarlo con ``tsc`` desde cualquier sitio. Para instalarlo globalmente:
+You can install TypeScript locally for your project, but I prefer to do it globally, so I can call ``tsc`` from everywhere. To install it globally:
 
 ``` language powershell
 npm install -g typescript
 ```
 
-### Declaración de tipos de ``intersystems-iris-native``
+### Type Declaration for IRIS Node.js Native SDK ``intersystems-iris-native``
 
-El fichero ``index.d.ts`` declara los tipos de clases, propiedades y métodos del Node Native API SDK para IRIS. Actualmente (Sep-2022) está en beta, pero será incluido oficialmente en versiones posteriores de InterSystems IRIS.
+The file ``index.d.ts`` declares the class, properties, methods,... types for our Node.js Native API SDK for IRIS. Currently (Sep-2022) is in beta version, but it'll be included at some point in future versions of InterSystems IRIS.
 
-- El SDK para Node.js lo encontrarás en ``<installdir>/dev/node/intersystems-iris-native``. Lo he copiado directamente bajo el directorio ``./install`` para tenerlo localmente en este repositorio.
-- Ahí deberías tener un fichero: ``index.js``. Debes copiar el fichero index.d.ts en ese directorio, al mismo nivel que ``index.js``
-- Modifica el archivo ``package.json``, añadiéndole un campo **types**. Debería quedar algo así:
+- You'll find the SDK package for Node.js in ``<installdir>/dev/node/intersystems-iris-native``. I've copied it directly under ``./install`` folder to get it locally in this repository (it belongs to IRIS 2022.1 version).
+- There you should have a file: ``index.js``. And there you should copy the file ``index.d.ts``, at the same level than ``index.js``
+- Change the file ``package.json``, to add a field **types**. It should look something like this:
 
 ```language json
   {
@@ -47,13 +48,13 @@ El fichero ``index.d.ts`` declara los tipos de clases, propiedades y métodos de
    }
 ```
 
-- Una vez hecho eso, puedes instalar el módulo con nmp install:
+- Once this is done, you can install the package with npm install:
 
-```language powershell
+```language shell
 npm install ./install/intersystems-iris-native
 ```
 
-- Según los ejemplos, puede que necesites instalar más paquetes de node.js. Para este ejemplo básico instalaremos ``readline-sync``, ``fs-extra`` y ``odbc``, junto con su declaración de tipos (el paquete ``odbc`` ya los incluye por defecto).
+- It depends on your examples, but for this, you will need to install more node.js packages. We'll install: ``readline-sync``, ``fs-extra`` y ``odbc``, together with their type declarations (``odbc`` include them already).
 
 ```language powershell
 npm install readline-sync
@@ -63,42 +64,42 @@ npm install -S @types/fs-extra
 npm install odbc
 ```
 
-### Instalación de Clase de Ejemplo
+### Installing the sample class
 
-Abre el terminal de InterSystems IRIS (actualmente versión 2022.1) y ve al namespace **USER**:
+Open your InterSystems IRIS terminal (I'm currently using version 2022.1)and go to namespace **USER**:
 
 ```language objectscript
 zn "USER"
 ```
 
-Carga y compila la clase de prueba ``OPNex.NativeNodejs``:
+Load and compile the test class``OPNex.NativeNodejs``:
 
 ```language objectscript
 do $system.OBJ.Load("<path-a-tu-repositorio>/src/OPNex.NativeNodejs.cls","cuk")
 ```
 
-## Ejecución del Ejemplo
+## Example Execution
 
-Se incluyen 2 archivos de ejemplo: ``nodeplay.ts`` en TypeScript, y ``nodeplay.js``, que representa el mismo archivo transpilado (JS generado a partir del TypeScript).
+There are 2 files included for testing: ``nodeplay.ts`` written in TypeScript, and ``nodeplay.js``, that is the same code transpiled (generated JS from the TypeScript file).
 
-Si quieres hacer modificaciones, puedes cambiar código en ``nodeplay.ts`` y luego transpilar de nuevo, o cambiar directamente el fichero final en JS.
+If you want to modify any of them, you can change code in ``nodeplay.ts`` and then transpile it again, or change directly the code in the JS file.
 
-Para generar el archivo en JS, simplemente ejecuta:
+To transpile and generate the file in JS, just execute:
 
 ```language shell
 tsc nodeplay.ts
 ```
 
-Se generará (se sobrescribirá si ya existe) una nueva versión del archivo ``nodeplay.js``. Para ejecutar el ejemplo:
+A new version of file ``nodeplay.js`` will be generated (overwritting the existing one if any). To execute the example:
 
 ```language shell
 node nodeplay.js
 ```
 
-Hay varias opciones que permiten probar el acceso directo a globals, la carga (escritura y lectura) accediendo e iterando sobre globals directamente, la ejecución de rutinas o métodos implementados en IRIS, así como el acceso puramente relacional a IRIS (ejecución de una select simple sobre la tabla de ejemplo ``OPNex.NativeNodejs``).
+There are several options that allow you to test the direct access to ``globals``, workload (writing & reading) accessing directly to and iterating through, execution of routines and methods implemented in IRIS and also pure relational access to IRIS DDBB (executing a simple SQL query on the sample table ``OPNex.NativeNodejs``).
 
-## Documentación Adicional
+## Additional Info
 
-Para documentación más detallada del API para Node.js, revisa la [Documentación Oficial de InterSystems IRIS](https://docs.intersystems.com/irisforhealth20221/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_refapi#BJSNAT_refapi_connection)
+To get more detailed doc of this Native API for Node.js, take a look at the [Documentation published in the official InterSystems IRIS website](https://docs.intersystems.com/irisforhealth20221/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_refapi#BJSNAT_refapi_connection)
 
 

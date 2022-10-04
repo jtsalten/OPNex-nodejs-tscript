@@ -1,5 +1,5 @@
 # OPNex-nodejs-tscript
-[README in English](https://github.com/jtsalten/OPNex-nodejs-tscript#readme_eng)
+[README in English](https://github.com/jtsalten/OPNex-nodejs-tscript/blob/main/README_eng.md)
 
 Pequeño ejemplo - IRIS + Node.js usando TypeScript (fichero de definición de tipos del Native API SDK para Node.js de IRIS en beta)
 

@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/readline-sync": "^1.4.4",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^10.1.0",
+    "intersystems-iris-native": "file:install/intersystems-iris-native",
+    "json": "^11.0.0",
+    "odbc": "^2.4.6",
+    "readline-sync": "^1.4.10"
+  }
+}

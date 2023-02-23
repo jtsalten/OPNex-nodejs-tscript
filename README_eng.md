@@ -98,6 +98,32 @@ node nodeplay.js
 
 There are several options that allow you to test the direct access to ``globals``, workload (writing & reading) accessing directly to and iterating through, execution of routines and methods implemented in IRIS and also pure relational access to IRIS DDBB (executing a simple SQL query on the sample table ``OPNex.NativeNodejs``).
 
+> At the time of this review, the transpiler doesn't generate the right JavaScript code for global iteration, concretly the method ``ViewStockData`` won't work. To fix it, change it to look like:
+
+```language=javascript
+// Iterate over all nodes and print
+function ViewStockData(irisNative) {
+    var _a;
+    // Create iterator
+    var iter = irisNative.iterator("^nyse");
+    console.log("Walk forwards");
+    /* Original JS code that works - generated TS code doesn't work
+    */
+    var key, value = '';
+    for ([key, value] of iter)
+    {
+        console.log("subscript = " + key + ", value = " + value);
+    }
+    /*
+    // Iterate over all nodes
+    for (var _i = 0, iter_1 = iter; _i < iter_1.length; _i++) {
+        _a = iter_1[_i], key = _a[0], value = _a[1];
+        console.log("subscript = " + key + ", value = " + value);
+    }
+    */
+  }
+```
+
 ## Additional Info
 
 To get more detailed doc of this Native API for Node.js, take a look at the [Documentation published in the official InterSystems IRIS website](https://docs.intersystems.com/irisforhealth20221/csp/docbook/DocBook.UI.Page.cls?KEY=BJSNAT_refapi#BJSNAT_refapi_connection)

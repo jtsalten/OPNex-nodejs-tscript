@@ -1,0 +1,5 @@
+ROUTINE StocksUtil
+StocksUtil
+	return
+PrintVersion()
+	return $zv
